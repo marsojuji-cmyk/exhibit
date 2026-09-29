@@ -1,0 +1,117 @@
+{
+  "alert_threshold": 50,
+  "provenance": {
+    "source": "PhishTank verified online feed (keyless bulk CSV)",
+    "feed_url": "http://data.phishtank.com/data/online-valid.csv",
+    "fetched_at_utc": "2026-09-29T13:07:31+00:00",
+    "raw_rows": 77695,
+    "verified_online_rows": 77695,
+    "note": "Labels = PhishTank volunteer-verified quorum; brand pairing from PhishTank's own `target` column. urlscan_malicious=False for all entries (no urlscan key); cert dates not collected (cert_last_7d / free_acme_issuer untested on this set)."
+  },
+  "overall_in_scope": {
+    "n": 77,
+    "tp": 0,
+    "tn": 5,
+    "fp": 0,
+    "fn": 14,
+    "precision": 0.0,
+    "recall": 0.0
+  },
+  "per_brand_in_scope": {
+    "amazon.com": {
+      "n": 4,
+      "tp": 0,
+      "tn": 0,
+      "fp": 0,
+      "fn": 1,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "facebook.com": {
+      "n": 6,
+      "tp": 0,
+      "tn": 0,
+      "fp": 0,
+      "fn": 2,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "microsoft.com": {
+      "n": 6,
+      "tp": 0,
+      "tn": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "netflix.com": {
+      "n": 4,
+      "tp": 0,
+      "tn": 0,
+      "fp": 0,
+      "fn": 2,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "paypal.com": {
+      "n": 8,
+      "tp": 0,
+      "tn": 3,
+      "fp": 0,
+      "fn": 4,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "apple.com": {
+      "n": 9,
+      "tp": 0,
+      "tn": 0,
+      "fp": 0,
+      "fn": 5,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  },
+  "coverage": {
+    "malicious_total": 269,
+    "in_scope": 14,
+    "declined_by_design": 255,
+    "coverage_recall_declined_as_fn": 0.0
+  },
+  "false_positive_names": [],
+  "false_negative_names": [
+    "baloupd-hunr.s3.amazonaws.com (vs amazon.com, score=25, kind=brand-substring, fired=['brand_substring'])",
+    "facebook.market-34545647656.club (vs facebook.com, score=25, kind=brand-subdomain, fired=['brand_subdomain'])",
+    "noreplybusinessfacebook.com (vs facebook.com, score=25, kind=brand-substring, fired=['brand_substring'])",
+    "netflix-renovacion-pago.com (vs netflix.com, score=45, kind=brand-substring, fired=['brand_substring', 'rdap_created_30d'])",
+    "netflixapp.com (vs netflix.com, score=25, kind=brand-substring, fired=['brand_substring'])",
+    "paypalapp-auth-de.net (vs paypal.com, score=25, kind=brand-substring, fired=['brand_substring'])",
+    "payme-paypal.com (vs paypal.com, score=25, kind=brand-substring, fired=['brand_substring'])",
+    "www.paylink-paypal.com (vs paypal.com, score=25, kind=brand-substring, fired=['brand_substring'])",
+    "www.paypal-banking.pro (vs paypal.com, score=25, kind=brand-substring, fired=['brand_substring'])",
+    "apple-iforgetid.click (vs apple.com, score=25, kind=brand-substring, fired=['brand_substring'])",
+    "appleidmapa.com (vs apple.com, score=45, kind=brand-substring, fired=['brand_substring', 'rdap_created_30d'])",
+    "applesoporte.services (vs apple.com, score=25, kind=brand-substring, fired=['brand_substring'])",
+    "apple.pay-wallet-review.com (vs apple.com, score=25, kind=brand-subdomain, fired=['brand_subdomain'])",
+    "applemymusic.com (vs apple.com, score=25, kind=brand-substring, fired=['brand_substring'])"
+  ],
+  "declined_by_design_examples": [
+    "plus-video8.bolt.host (target amazon.com)",
+    "remboursement-amzprime.com (target amazon.com)",
+    "info.my-sav-prime.com (target amazon.com)",
+    "prime-sos.com (target amazon.com)",
+    "primespace-video.com (target amazon.com)",
+    "prime-membership-d01.pro (target amazon.com)",
+    "mr82638.pro (target amazon.com)",
+    "me37648.pro (target amazon.com)",
+    "mesn03874.pro (target amazon.com)",
+    "mons93849.pro (target amazon.com)",
+    "mssg57391.pro (target amazon.com)",
+    "plateforme-de3418.com (target amazon.com)",
+    "am-prime-sonnerie.com (target amazon.com)",
+    "lec-myprim-am.com (target amazon.com)",
+    "vid-amp.com (target amazon.com)"
+  ],
+  "note": "External ground truth (PhishTank verified). In-scope metrics validate weights/threshold; declined-by-design entries measure shape coverage scope, not weight calibration. urlscan/cert features untested on this set (no keys / no cert collection)."
+}

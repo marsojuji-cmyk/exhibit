@@ -120,8 +120,18 @@ report precision/recall at the ≥50 alert threshold and a confusion matrix.
 **Current status (2026-09-29):** a curated 20-fixture labeled set exists
 (`eval/ct_labeled_set.json`, `eval/run_ct_eval.py`) — precision 1.000 /
 recall 1.000 on it at the published weights. That measures
-self-consistency, not real-world performance: an external labeled set of
-verified entries is still the prerequisite before any weight is tuned.
+self-consistency, not real-world performance. A first external labeled set
+now exists (`eval/ct_labeled_set_external.json`,
+`eval/run_ct_eval_external.py`, report
+`eval/ct-radar-external-eval-2026-09-29.md`): 269 PhishTank-verified
+phishing domains plus 63 benign controls. In-scope result at ≥50: 0 TP /
+14 FN / 0 FP — the canonical brand-lookalike + freshly-registered shape
+scores 45 and stays silent. Only 14/269 (5.2%) of real phish wear a
+recognized lookalike shape at all (coverage finding, not a weight
+failure). An evidence-backed proposal (`rdap_created_30d` 20→25) is staged
+in the report; **weights are unchanged pending approval.** Note:
+`cert_last_7d`, `free_acme_issuer`, and `urlscan_malicious` were not
+exercised by the external set.
 
 ## Temporal sentinel (Layer B): snapshots, diffs, alert budget
 
