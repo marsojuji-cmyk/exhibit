@@ -1,0 +1,20 @@
+{
+  "brand": "marcusrichards.dev",
+  "alert_threshold": 50,
+  "n": 20,
+  "true_positives": 10,
+  "true_negatives": 10,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "confusion_matrix": {
+    "phish_predicted_phish": 10,
+    "phish_predicted_benign": 0,
+    "benign_predicted_phish": 0,
+    "benign_predicted_benign": 10
+  },
+  "false_positive_names": [],
+  "false_negative_names": [],
+  "note": "Curated fixture set \u2014 measures self-consistency at published weights, not real-world precision. External labeled set (PhishTank/URLhaus verified entries) is the prerequisite for weight tuning."
+}

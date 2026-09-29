@@ -87,9 +87,15 @@ def classify_lookalike(name: str, brand_reg: str) -> tuple[str, str] | None:
     d = levenshtein(normalize_homoglyphs(nreg), normalize_homoglyphs(brand_reg))
     if 1 <= d <= 2:
         return ("edit-distance", f"distance {d} from {brand_reg}")
-    # 3. Brand label embedded in a longer name.
+    # 3. Brand label embedded in the registrable domain of a longer name.
     if brand_label in nreg:
         return ("brand-substring", f"contains '{brand_label}' with extra tokens")
+    # 4. Brand label as a subdomain of an unrelated registrable domain.
+    #    "marcusrichards.verify-login.org" is the classic phishing URL
+    #    shape: the brand is bait in a label the attacker controls.
+    labels = name.split(".")
+    if brand_label in labels[:-2]:
+        return ("brand-subdomain", f"'{brand_label}' is a subdomain label of {nreg}")
     return None
 
 
@@ -101,6 +107,8 @@ FEATURES = [
     ("edit_distance_1", 30, "one character off the brand — classic typosquat"),
     ("edit_distance_2", 20, "two characters off the brand — weaker typosquat"),
     ("brand_substring", 25, "brand embedded in longer name, e.g. brand-login.com"),
+    ("brand_subdomain", 25, "brand as a subdomain label of an unrelated registrable "
+                           "domain, e.g. brand.verify-login.org — classic phishing URL shape"),
     ("cert_last_7d", 15, "certificate issued in last 7 days — phishing kits rotate fast"),
     ("free_acme_issuer", 10, "free ACME issuer — weak signal, phishers use free certs too"),
     ("rdap_created_30d", 20, "domain registered in last 30 days"),
@@ -120,6 +128,8 @@ def score_lookalike(kind: str, evidence: str, cert_not_before: str,
         fired.append("edit_distance_1" if "distance 1" in evidence else "edit_distance_2")
     elif kind == "brand-substring":
         fired.append("brand_substring")
+    elif kind == "brand-subdomain":
+        fired.append("brand_subdomain")
     try:
         age_days = (time.time() - time.mktime(time.strptime(
             cert_not_before[:19], "%Y-%m-%dT%H:%M:%S"))) / 86400

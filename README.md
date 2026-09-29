@@ -102,22 +102,26 @@ Assessments render to `assessment-run-<n>.md`.
 
 For each `watchlist:` brand, Exhibit queries crt.sh once for certificates
 whose names contain the brand label, classifies each name (homoglyph →
-edit distance ≤2 → brand-substring), enriches hits via RDAP + urlscan,
-and scores phishing likelihood with a transparent additive feature model
-— every feature and weight is documented in `workbench/ctwatch.py`
-(`FEATURES`). The observation is a VERIFIED claim; the judgment is a
-GUESSED claim citing it. Known limits: the substring query cannot catch
-edit-distance-only typosquats that omit the brand string (a full CT stream
-would be needed); homoglyph coverage is a fixed table, not UTS #39.
+edit distance ≤2 → brand-substring → brand-in-subdomain), enriches hits
+via RDAP + urlscan, and scores phishing likelihood with a transparent
+additive feature model — every feature and weight is documented in
+`workbench/ctwatch.py` (`FEATURES`). The observation is a VERIFIED claim;
+the judgment is a GUESSED claim citing it. Known limits: the substring
+query cannot catch edit-distance-only typosquats that omit the brand
+string (a full CT stream would be needed); homoglyph coverage is a fixed
+table, not UTS #39; the `brand-in-subdomain` kind was added 2026-09-29
+after the labeled eval found the blind spot.
 
 **Eval methodology:** precision/recall are measured against a labeled set
 of known-phishing lookalikes (sourced from PhishTank/URLhaus verified
 entries) plus known-benign lookalikes (CDN/reseller subdomains, defensive
 registrations). The scorer runs over the set at the published weights; we
 report precision/recall at the ≥50 alert threshold and a confusion matrix.
-**No labeled set exists yet — the scores are currently unvalidated and
-the weights are judgment, not tuned.** Building the labeled set is the
-prerequisite before any weight is trusted.
+**Current status (2026-09-29):** a curated 20-fixture labeled set exists
+(`eval/ct_labeled_set.json`, `eval/run_ct_eval.py`) — precision 1.000 /
+recall 1.000 on it at the published weights. That measures
+self-consistency, not real-world performance: an external labeled set of
+verified entries is still the prerequisite before any weight is tuned.
 
 ## Temporal sentinel (Layer B): snapshots, diffs, alert budget
 

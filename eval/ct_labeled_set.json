@@ -1,0 +1,206 @@
+{
+  "brand": "marcusrichards.dev",
+  "note": "Curated by the workbench author 2026-09-29 from canonical phishing patterns and benign lookalike classes. NOT external ground truth.",
+  "fixtures": [
+    {
+      "name": "m\u0430rcusrichards.dev",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2026-09-27T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2026-09-27T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusrichardz.dev",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2026-09-27T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2026-09-27T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusrichards-login.com",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "DigiCert Inc",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": true
+      }
+    },
+    {
+      "name": "mxrcusrichxrds.dev",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2026-09-27T00:00:00",
+        "issuer": "ZeroSSL",
+        "rdap_created": "2026-09-27T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "m\u0430rcusri\u0441hards.dev",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2026-09-27T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusrichards-secure.com",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2026-09-27T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2026-09-27T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusrlchards.dev",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2026-09-27T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "m\u0430rcusrichards.net",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "DigiCert Inc",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": true
+      }
+    },
+    {
+      "name": "marcu5richards.dev",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2026-09-27T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusrichards.verify-login.org",
+      "label": "phish",
+      "meta": {
+        "cert_not_before": "2026-09-27T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2026-09-27T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "getmarcusrichards.com",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "mxrcusrichxrds.dev",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "DigiCert Inc",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "m\u0430rcusrichards.dev",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "DigiCert Inc",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusrichards.com",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusrichardz.dev",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "DigiCert Inc",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "shop-marcusrichards.net",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "DigiCert Inc",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusrichards-blog.com",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusr1chards.dev",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "DigiCert Inc",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "cdn.marcusrichards.com",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "Let's Encrypt",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    },
+    {
+      "name": "marcusrichards.dev",
+      "label": "benign",
+      "meta": {
+        "cert_not_before": "2023-01-15T00:00:00",
+        "issuer": "DigiCert Inc",
+        "rdap_created": "2023-01-15T00:00:00",
+        "urlscan_malicious": false
+      }
+    }
+  ]
+}

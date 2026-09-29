@@ -174,6 +174,11 @@ class TestCTRadarClassify(unittest.TestCase):
         kind, ev = ctwatch.classify_lookalike("getmarcusrichards.com", self.BRAND)
         self.assertEqual(kind, "brand-substring")
 
+    def test_brand_as_subdomain_of_unrelated_registrable(self):
+        kind, ev = ctwatch.classify_lookalike("marcusrichards.verify-login.org", self.BRAND)
+        self.assertEqual(kind, "brand-subdomain")
+        self.assertIn("verify-login.org", ev)
+
     def test_distant_domain_not_lookalike(self):
         self.assertIsNone(ctwatch.classify_lookalike("marcus-richards-photography.ca", self.BRAND))
 
@@ -219,6 +224,18 @@ class TestCTRadarScoring(unittest.TestCase):
         score, _ = ctwatch.score_lookalike("homoglyph", "x", self.RECENT,
                                            "Let's Encrypt", self.RECENT, True)
         self.assertLessEqual(score, 100)
+
+    def test_brand_subdomain_scores_with_fresh_infrastructure(self):
+        score, fired = ctwatch.score_lookalike("brand-subdomain", "x", self.RECENT,
+                                               "Let's Encrypt", self.RECENT, False)
+        self.assertIn("brand_subdomain", fired)
+        self.assertGreaterEqual(score, 50)
+
+    def test_brand_subdomain_alone_below_threshold(self):
+        score, fired = ctwatch.score_lookalike("brand-subdomain", "x", self.OLD,
+                                               "DigiCert Inc", self.OLD, False)
+        self.assertEqual(score, 25)
+        self.assertLess(score, 50)
 
 
 class TestSentinel(unittest.TestCase):
