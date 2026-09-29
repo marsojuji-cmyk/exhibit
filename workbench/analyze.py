@@ -44,7 +44,7 @@ def extract_entities(text: str) -> list[tuple[str, str]]:
         found[("md5", v.lower())] = True
     for v in set(DOMAIN.findall(text)):
         v = v.lower().rstrip(".")
-        if not any(v.endswith("@" + e.split("@")[1]) for e in found if e[0] == "email"):
+        if not any(v == e[1].split("@")[1] for e in found if e[0] == "email"):
             found[("domain", v)] = True
     return sorted(found)
 
