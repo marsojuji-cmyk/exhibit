@@ -1,0 +1,12 @@
+# Authorized collection scope. The workbench collects only on these
+# targets. Anything else needs --attest "<reason>", which is written
+# into the ledger alongside the run — the authorization is on record.
+targets:
+  - name: marcusrichards.dev
+    purpose: defensive monitoring of own domain
+
+# CT radar watchlist (Layer C). Brands watched for lookalike/typosquat
+# certificate issuance. Presence here authorizes the ctwatch runs.
+watchlist:
+  - name: marcusrichards.dev
+    purpose: detect lookalike/typosquat cert issuance against own brand

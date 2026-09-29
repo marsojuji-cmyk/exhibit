@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+workbench.db
+workbench.db.*
+greynoise-cache.json
