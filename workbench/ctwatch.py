@@ -111,7 +111,7 @@ FEATURES = [
                            "domain, e.g. brand.verify-login.org — classic phishing URL shape"),
     ("cert_last_7d", 15, "certificate issued in last 7 days — phishing kits rotate fast"),
     ("free_acme_issuer", 10, "free ACME issuer — weak signal, phishers use free certs too"),
-    ("rdap_created_30d", 20, "domain registered in last 30 days"),
+    ("rdap_created_30d", 25, "domain registered in last 30 days"),
     ("urlscan_malicious", 40, "urlscan verdicts flag the lookalike as malicious"),
 ]
 FREE_ACME = ("let's encrypt", "letsencrypt", "zerossl", "ssl.com free", "buypass")

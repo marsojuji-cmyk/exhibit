@@ -10,12 +10,12 @@
   },
   "overall_in_scope": {
     "n": 77,
-    "tp": 0,
+    "tp": 2,
     "tn": 5,
     "fp": 0,
-    "fn": 14,
-    "precision": 0.0,
-    "recall": 0.0
+    "fn": 12,
+    "precision": 1.0,
+    "recall": 0.143
   },
   "per_brand_in_scope": {
     "amazon.com": {
@@ -47,12 +47,12 @@
     },
     "netflix.com": {
       "n": 4,
-      "tp": 0,
+      "tp": 1,
       "tn": 0,
       "fp": 0,
-      "fn": 2,
-      "precision": 0.0,
-      "recall": 0.0
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.5
     },
     "paypal.com": {
       "n": 8,
@@ -65,33 +65,31 @@
     },
     "apple.com": {
       "n": 9,
-      "tp": 0,
+      "tp": 1,
       "tn": 0,
       "fp": 0,
-      "fn": 5,
-      "precision": 0.0,
-      "recall": 0.0
+      "fn": 4,
+      "precision": 1.0,
+      "recall": 0.2
     }
   },
   "coverage": {
     "malicious_total": 269,
     "in_scope": 14,
     "declined_by_design": 255,
-    "coverage_recall_declined_as_fn": 0.0
+    "coverage_recall_declined_as_fn": 0.007
   },
   "false_positive_names": [],
   "false_negative_names": [
     "baloupd-hunr.s3.amazonaws.com (vs amazon.com, score=25, kind=brand-substring, fired=['brand_substring'])",
     "facebook.market-34545647656.club (vs facebook.com, score=25, kind=brand-subdomain, fired=['brand_subdomain'])",
     "noreplybusinessfacebook.com (vs facebook.com, score=25, kind=brand-substring, fired=['brand_substring'])",
-    "netflix-renovacion-pago.com (vs netflix.com, score=45, kind=brand-substring, fired=['brand_substring', 'rdap_created_30d'])",
     "netflixapp.com (vs netflix.com, score=25, kind=brand-substring, fired=['brand_substring'])",
     "paypalapp-auth-de.net (vs paypal.com, score=25, kind=brand-substring, fired=['brand_substring'])",
     "payme-paypal.com (vs paypal.com, score=25, kind=brand-substring, fired=['brand_substring'])",
     "www.paylink-paypal.com (vs paypal.com, score=25, kind=brand-substring, fired=['brand_substring'])",
     "www.paypal-banking.pro (vs paypal.com, score=25, kind=brand-substring, fired=['brand_substring'])",
     "apple-iforgetid.click (vs apple.com, score=25, kind=brand-substring, fired=['brand_substring'])",
-    "appleidmapa.com (vs apple.com, score=45, kind=brand-substring, fired=['brand_substring', 'rdap_created_30d'])",
     "applesoporte.services (vs apple.com, score=25, kind=brand-substring, fired=['brand_substring'])",
     "apple.pay-wallet-review.com (vs apple.com, score=25, kind=brand-subdomain, fired=['brand_subdomain'])",
     "applemymusic.com (vs apple.com, score=25, kind=brand-substring, fired=['brand_substring'])"

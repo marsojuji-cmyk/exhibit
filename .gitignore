@@ -3,3 +3,6 @@ __pycache__/
 workbench.db
 workbench.db.*
 greynoise-cache.json
+
+# local secrets — never commit
+.keys.env
