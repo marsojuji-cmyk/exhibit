@@ -17,17 +17,25 @@ silent skip). No accounts were created; keys are the analyst's to add:
   threatfox  — abuse.ch ThreatFox (ABUSECH_AUTH_KEY, same portal)
   otx        — AlienVault OTX (OTX_API_KEY)
   abuseipdb  — AbuseIPDB (ABUSEIPDB_API_KEY)
-  virustotal — VirusTotal (VT_API_KEY)
+  virustotal — VirusTotal (Secure Vault custom.virustotal; VT_API_KEY env fallback)
 """
 from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 import urllib.parse
 import urllib.request
 
 from .connectors import FetchResult, USER_AGENT, TIMEOUT, MAX_BODY
+
+sys.path.insert(0, "/opt/hatch/skills/skill-creator/bin")
+try:
+    from dynamic_credentials import add_surrogate_to_request, DynamicCredentialError
+    _HAVE_VAULT = True
+except ImportError:  # pragma: no cover — dev/CI without the vault helper
+    _HAVE_VAULT = False
 
 GREYNOISE_TTL = 7 * 86400
 CACHE_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -64,12 +72,28 @@ def _get(url: str, headers: dict | None = None) -> tuple:
 # research is stale. The key is free; no account was created here — when
 # ABUSECH_AUTH_KEY is unset a DEGRADED claim is recorded, never a silent skip.
 def fetch_urlhaus_host(host: str) -> FetchResult:
-    """URLhaus host lookup — malware URLs seen on this host. POST, Auth-Key."""
+    """URLhaus host lookup — malware URLs seen on this host. POST, Auth-Key.
+
+    NOTE: URLhaus expects a form-encoded body (host=...), not JSON. A JSON
+    body yields HTTP 200 with an empty response — a silent wrong answer, so
+    the encoding matters here."""
     key = os.environ.get("ABUSECH_AUTH_KEY", "").strip()
     url = "https://urlhaus-api.abuse.ch/v1/host/"
     if not key:
         return _stub("urlhaus", "ABUSECH_AUTH_KEY", url)
-    status, body = _post(url, {"host": host}, headers={"Auth-Key": key})
+    data = urllib.parse.urlencode({"host": host}).encode()
+    req = urllib.request.Request(
+        url, data=data,
+        headers={"User-Agent": USER_AGENT,
+                 "Content-Type": "application/x-www-form-urlencoded",
+                 "Auth-Key": key})
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
+            body = resp.read().decode("utf-8", "replace")
+            status, body = resp.status, body[:MAX_BODY]
+    except Exception as exc:
+        return FetchResult("urlhaus", url, False,
+                           error=f"URLhaus host lookup failed: FETCH_ERROR: {exc}"[:140])
     if status == 200 and body.lstrip().startswith("{"):
         return FetchResult("urlhaus", url, True, body)
     return FetchResult("urlhaus", url, False,
@@ -106,6 +130,10 @@ def summarize_threatfox(data) -> dict:
     d = data if isinstance(data, dict) else {}
     status = d.get("query_status", "")
     rows = d.get("data", []) or []
+    # "no_result" answers carry data as a plain string, not a list of records.
+    if not isinstance(rows, list):
+        rows = []
+    rows = [r for r in rows if isinstance(r, dict)]
     return {"listed": status == "ok" and bool(rows),
             "query_status": status,
             "count": len(rows),
@@ -223,16 +251,44 @@ def fetch_abuseipdb(ip: str) -> FetchResult:
 
 
 def fetch_virustotal_domain(domain: str) -> FetchResult:
-    """VirusTotal domain report. Key: VT_API_KEY (free: 500 lookups/day, 4 req/min)."""
-    key = os.environ.get("VT_API_KEY", "").strip()
+    """VirusTotal domain report.
+
+    Key: Secure Vault connector custom.virustotal (Community API key;
+    free: 1000 lookups/day, 4 req/min), verified live 2026-09-29.
+    Falls back to VT_API_KEY env var for local/dev runs without the vault.
+    The raw key never lands in logs either way.
+    """
     url = f"https://www.virustotal.com/api/v3/domains/{urllib.parse.quote(domain)}"
-    if not key:
-        return _stub("virustotal", "VT_API_KEY", url)
-    status, body = _get(url, headers={"x-apikey": key})
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    if _HAVE_VAULT:
+        try:
+            # Surrogate -> authd swaps in the real key under X-Apikey.
+            add_surrogate_to_request(req, "custom.virustotal",
+                                     allowed_hosts=["www.virustotal.com"])
+        except DynamicCredentialError:
+            key = os.environ.get("VT_API_KEY", "").strip()
+            if not key:
+                return _stub("virustotal", "VT_API_KEY/custom.virustotal", url)
+            req.add_header("x-apikey", key)
+    else:
+        key = os.environ.get("VT_API_KEY", "").strip()
+        if not key:
+            return _stub("virustotal", "VT_API_KEY", url)
+        req.add_header("x-apikey", key)
+    try:
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
+            body = resp.read().decode("utf-8", "replace")
+            status, body = resp.status, body[:MAX_BODY]
+    except Exception as exc:
+        return FetchResult("virustotal", url, False,
+                           error=f"VirusTotal query failed: FETCH_ERROR: {exc}"[:140])
     if status == 200 and body.lstrip().startswith("{"):
         return FetchResult("virustotal", url, True, body)
     if status == 429:
         return FetchResult("virustotal", url, False, error="VirusTotal rate-limited (429)")
+    if status in (401, 403):
+        return FetchResult("virustotal", url, False,
+                           error="VirusTotal credential rejected (401/403) — check vault connector")
     return FetchResult("virustotal", url, False, error=f"VirusTotal query failed: {body[:140]}")
 
 
