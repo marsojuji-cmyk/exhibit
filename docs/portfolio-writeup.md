@@ -30,5 +30,5 @@ Free public data erodes — every connector is replaceable by design, and terms 
 
 ## Links
 
-- Repo: https://github.com/marcusrichards-dev/exhibit
+- Repo: https://github.com/marsojuji-cmyk/exhibit
 - Spec: `spec/claim-receipt-spec.md` · ToS gate: `spec/tos-gate-memo.md`
