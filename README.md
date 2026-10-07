@@ -82,7 +82,7 @@ without attestation is refused, not warned. The `watchlist:` section of
 ## Usage
 
 ```bash
-cd ~/workspace/security/analyst-workbench
+cd exhibit   # your clone
 python3 -m workbench.cli init
 python3 -m workbench.cli collect --target marcusrichards.dev
 python3 -m workbench.cli analyze --run 1   # links, inferred claims, conflicts
@@ -165,7 +165,7 @@ enforces that by design.
 python3 -m unittest discover tests -v
 ```
 
-The same command this repository's CI runs on every push. If it does not pass on a clean clone,
+The same command this repository's CI runs on every push. Cross-examine it: if it does not pass on a clean clone,
 the CI badge is wrong and so is this README — please open an issue.
 
 Every claim in this README is meant to be checkable by someone who does not trust it yet.
