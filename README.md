@@ -8,6 +8,21 @@
 
 *Open-source intelligence, presented as evidence.* Exhibit is defensive OSINT aggregation with provenance. It reads public sources only, and every finding is a claim with a source, a timestamp and a confidence tier. It uses only the standard library and keeps its SQLite ledger in `workbench.db`.
 
+## What is Exhibit?
+
+Exhibit runs defensive, open-source intelligence aggregation for authorized domains in ~20 seconds without requiring paid API keys or credentials.
+
+- **1. What goes in:** An authorized target domain defined in `scope.yaml` (or attested on the CLI):
+  ```bash
+  python3 -m workbench.cli collect --target marcusrichards.dev
+  python3 -m workbench.cli assess --run 1
+  ```
+- **2. What comes out:** A structured, tiered evidence report (`assessment-run-1.md`) backed by SQLite provenance:
+  - **Tiers:** Every finding is classified as `[VERIFIED]` (primary source), `[INFERRED]` (linked), `[GUESSED]` (pattern), or `[DEGRADED]` (source gap).
+  - **Risk score:** Transparent additive score where each point cites exact claim IDs.
+  - **Review queue:** Findings staged for human approval (`approve` / `reject`).
+- **3. How long it takes:** Under 30 seconds across standard open sources (Certificate Transparency via crt.sh, urlscan.io, GitHub public API, DNS-over-HTTPS, and RDAP).
+
 ## What it guarantees
 
 - **Scope gate.** `collect` runs only against targets in `scope.yaml`. Anything else needs `--attest "<reason>"`, which is written into the ledger. Without it the CLI prints `REFUSED` and exits 2 (`check_scope` in `workbench/cli.py`). The gate refuses; it doesn't just warn.
